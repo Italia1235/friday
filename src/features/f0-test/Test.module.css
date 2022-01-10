@@ -1,0 +1,9 @@
+.example{
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    justify-content: center;
+    align-items: flex-start;
+    margin: 20px;
+    width: 200px;
+}

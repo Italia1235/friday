@@ -1,0 +1,10 @@
+.superInput{
+    outline: none;
+    border: none;
+    border-bottom: #ccc 1px solid;
+    transition: 0.4s all ease-in;
+
+}
+.superInput:focus{
+    border-bottom-color: #21268F;
+}
