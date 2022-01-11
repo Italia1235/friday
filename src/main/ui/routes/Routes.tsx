@@ -5,8 +5,8 @@ import {Registration} from "../../../features/f1-auth/a2-register/Registration";
 import {Test} from "../../../features/f0-test/Test";
 import {Error404} from "../../../features/error404/Error404";
 import React from "react";
-import {ForgotPass} from "../../../features/f1-auth/a3-forgot-pass/ForgotPass";
 import {SetPassword} from "../../../features/f1-auth/a4-new-pass/SetPassword";
+import {ForgotContainer} from "../../../features/f1-auth/a3-forgot-pass/ForgotContainer";
 
 export const PATH = {
     PROFILE: '/profile',
@@ -22,7 +22,7 @@ export const RoutesComponent = () => {
         <>
             <Routes>
                 <Route path={PATH.PROFILE} element={<Profile/>} />
-                <Route path={PATH.FORGOT} element={<ForgotPass/>} />
+                <Route path={PATH.FORGOT} element={<ForgotContainer/>} />
                 <Route path={PATH.REGISTER} element={<Registration/>}/>
                 <Route path={PATH.LOGIN} element={<Login/>}/>
                 <Route path={PATH.SET_PASS} element={<SetPassword/>}/>
