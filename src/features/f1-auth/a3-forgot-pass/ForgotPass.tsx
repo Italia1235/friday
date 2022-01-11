@@ -7,7 +7,7 @@ import {PATH} from '../../../main/ui/routes/Routes';
 export const ForgotPass = ({inputValue, onChange, onEnter, isLoading, passRecoverySuccess}: ForgotPropsType) => {
     return passRecoverySuccess
         ? <div>click the link in the message in your email</div>
-        : <div className={s.forgotContainer}>
+        : <div className={s.formContainer}>
             <SuperInput value={inputValue}
                         onEnter={onEnter}
                         disabled={isLoading}
