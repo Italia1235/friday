@@ -9,6 +9,8 @@ export const Login = () => {
     const [emailValue,setEmailValue] = useState<string>("")
     const [passValue,setPassValue] = useState<string>("")
 
+
+
     const changePasswordValue = (e: ChangeEvent<HTMLInputElement>) => {
         setPassValue(e.currentTarget.value)
     }
@@ -32,7 +34,7 @@ export const Login = () => {
 
             </form>
                 <div style={{paddingTop:"10px"}}>  <NavLink style={{color:"darkgrey",paddingLeft:"250px"}} to={PATH.FORGOT}>Forgot Password?</NavLink> </div>
-                <SuperButton  style={{marginTop:"10px",width:"80px"}}>Login</SuperButton>
+                <SuperButton style={{marginTop:"10px",width:"80px"}}>Login</SuperButton>
 
                 <SuperButton style={{marginTop:"10px",width:"80px"}}>Sign up</SuperButton>
             </div>
