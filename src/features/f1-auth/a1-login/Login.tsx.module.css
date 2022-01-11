@@ -1,0 +1,9 @@
+.allLoginArea{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 50%;
+}
+.headlines{
+    padding-bottom: 10px;
+}
