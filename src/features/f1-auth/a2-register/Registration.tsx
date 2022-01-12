@@ -1,8 +1,14 @@
 import s from "../a2-register/Registration.module.css"
-import {ChangeEvent, useState} from "react";
+import {ChangeEvent, FormEventHandler, useState} from "react";
 import {registerApi} from "./dal/api";
+import loading from "../../../img/Spinner-1s-200px.svg"
+import {useSelector} from "react-redux";
+import {AppStoreType} from "../../../main/bll/store/store";
 
 export const Registration = () => {
+    // let successfully = useSelector<AppStoreType,string>((state) =>state.register.successfully)
+    // let
+
     let [email, setEmail] = useState("")
     let [password, setPassword] = useState("")
     let [confPassword, setConfPassword] = useState("")
@@ -16,32 +22,47 @@ export const Registration = () => {
         setConfPassword(e.currentTarget.value)
     }
 
+    let registration= () => {
+
+        registerApi.createUser(email, password)
+            .then((res) => {
+                console.log(res)
+            })
+    }
+
     return (
         <div className={s.mainDiv}>
             <div className={s.innerMainDiv}>
-                <h3>It-incubator</h3>
-                <h4>Sign Up</h4>
-                <form className={s.form}>
-                    <input type={"email"}
+                <p className={s.title}>It-incubator</p>
+                <p className={s.subTitle}>Sign Up</p>
+                <div className={s.form}>
+                    <p className={s.inputText}>Email</p>
+                    <input className={s.input}
+                           type={"email"}
                            value={email}
                            onChange={emailHandler}
                     />
-                    <input type={"password"}
+                    <p className={s.inputText}>Password</p>
+                    <input className={s.input}
+                           type={"password"}
                            value={password}
                            onChange={passwordHandler}
                     />
-                    <input type={"password"}
+                    <p className={s.inputText}>Confirm password</p>
+                    <input className={s.input}
+                           type={"password"}
                            value={confPassword}
                            onChange={confPasswordHandler}
                     />
-                    <button onClick={() => {
-                        registerApi.createUser(email, password)
-                            .then(() =>{
-                                console.log("123")
-                            })
-                    }}>Register
-                    </button>
-                </form>
+                    <div className={s.buttons}>
+                        <button className={s.cancel} >Cancel
+                        </button>
+                        <button className={s.register} onClick={registration}>Register
+                        </button>
+                    </div>
+
+                </div>
+                {/*<img className={s.load} src={loading}/>*/}
             </div>
         </div>
     )
