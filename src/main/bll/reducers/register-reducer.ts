@@ -12,7 +12,7 @@ export const registerReducer = (state = initState, action: ActionType): InitStat
 }
 
 type loadingStatusACType = ReturnType<typeof loadingStatusAC>
-let loadingStatusAC = (status: loadingStatus) => {
+export const loadingStatusAC = (status: loadingStatus) => {
     return {
         type: "SET_LOADING_STATUS",
         status
