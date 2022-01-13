@@ -12,7 +12,7 @@ export type LoginParamsType = {
 
 export const authAPI = {
     login(data: LoginParamsType) {
-        return instance.post<LoginParamsType,UserType>('auth/login', data);
+        return instance.post<LoginParamsType,any>('auth/login', data);
     }
 }
 
