@@ -12,6 +12,7 @@ export const SetPassword = (props: SetPassPropsType) => {
         onSubmit,
         isLoading
     } = props;
+
     return (
         <div className={s.formContainer}>
             <SuperInputText value={inputValue[0]}

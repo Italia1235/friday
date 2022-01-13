@@ -4,26 +4,33 @@ import s from './SetPassword.module.css'
 import {useDispatch, useSelector} from "react-redux";
 import {AppStoreType} from "../../../main/bll/store/store";
 import {useState} from "react";
-import {setError} from "../../../main/bll/reducers/app-reducer";
+import {Navigate, useParams} from "react-router-dom";
+import {setNewPass} from "../../../main/bll/reducers/set-pass-reducer";
+import {PATH} from "../../../main/ui/routes/Routes";
 
 export const SetPassContainer = () => {
+    const [passError, setPassError] = useState(false)
     const isLoading = useSelector((state: AppStoreType) => state.app.isLoading);
+    const newPassSuccess = useSelector((state:AppStoreType)=> state.setPass.newPassSuccess);
+    const {token} = useParams<"token"| "id">();
     const dispatch = useDispatch();
     const [text1, setText1] = useState<string>('');
     const [text2, setText2] = useState<string>('');
-
     const onNewPassSubmit = () => {
-        if(text1 === text2){
-            alert(text1)
+        if(token && (text1 === text2)){
+            passError && setPassError(false);
+            dispatch(setNewPass(text1, token));
         } else {
-            dispatch(setError("Passwords don't match!"))
+            setPassError(true)
         }
-
+    }
+    if(newPassSuccess){
+        return <Navigate to={PATH.LOGIN} />
     }
     return (
         <div className={s.container}>
             <h3>setPass</h3>
-            <RequestStatusInfo/>
+            <RequestStatusInfo passError={passError}/>
             <SetPassword inputValue={[text1, text2]}
                          isLoading={isLoading}
                          onChange1={setText1}

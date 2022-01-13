@@ -14,7 +14,7 @@ export const PATH = {
     FORGOT: '/forgot',
     REGISTER: '/register',
     TEST: '/test',
-    SET_PASS: '/set-new-password'
+    SET_PASS: '/set-new-password/:token'
 }
 
 export const RoutesComponent = () => {
