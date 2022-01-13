@@ -4,12 +4,15 @@ import {ChangeEvent, useState} from "react";
 import SuperButton from "../../../main/ui/common/superButton/SuperButton";
 import {Link, NavLink} from "react-router-dom";
 import {PATH} from "../../../main/ui/routes/Routes";
+import {authReducer, LoginThunkCreator} from "../../../main/bll/reducers/login-reducer";
 export const Login = () => {
 
     const [emailValue,setEmailValue] = useState<string>("")
     const [passValue,setPassValue] = useState<string>("")
 
-
+const authStart = ()=>{
+    LoginThunkCreator({email:emailValue,password:passValue,rememberMe:true})
+}
 
     const changePasswordValue = (e: ChangeEvent<HTMLInputElement>) => {
         setPassValue(e.currentTarget.value)
@@ -34,7 +37,7 @@ export const Login = () => {
 
             </form>
                 <div style={{paddingTop:"10px"}}>  <NavLink style={{color:"darkgrey",paddingLeft:"250px"}} to={PATH.FORGOT}>Forgot Password?</NavLink> </div>
-                <SuperButton style={{marginTop:"10px",width:"80px"}}>Login</SuperButton>
+                <SuperButton style={{marginTop:"10px",width:"80px"}} onClick={()=>authStart()}>Login</SuperButton>
 
                 <SuperButton style={{marginTop:"10px",width:"80px"}}>Sign up</SuperButton>
             </div>

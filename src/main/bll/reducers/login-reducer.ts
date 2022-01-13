@@ -11,22 +11,20 @@ const initialState: InitialStateType = {
 export const authReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
         case 'login/SET-IS-LOGGED-IN':
-            return {...state, isLoggedIn: action.value}
-        case 'login/CHANGE-VALUE':
-        return{...state,email:action.email,password:action.password}
+            return {...state, isLoggedIn: action.isLoggedIn}
+
         default:
             return state
     }
 }
 
-type ActionsType = ReturnType<typeof setIsLoggedInAC>|ReturnType<typeof ChangeInputValueAC>
+type ActionsType = ReturnType<typeof setIsLoggedInAC>
 
 
-export const setIsLoggedInAC = (value: boolean) =>
-    ({type: 'login/SET-IS-LOGGED-IN', value} as const)
+export const setIsLoggedInAC = (isLoggedIn: boolean,email:string,password:string) =>
+    ({type: 'login/SET-IS-LOGGED-IN', isLoggedIn,email,password} as const)
 
-export const ChangeInputValueAC = (email:string,password:string) =>
-    ({type: 'login/CHANGE-VALUE', email,password} as const)
+
 
 
 type InitialStateType = {
@@ -36,10 +34,11 @@ type InitialStateType = {
 }
 
 
-const LoginThunkCreator = (data:LoginParamsType) => {
+export const LoginThunkCreator = (data:LoginParamsType) => {
     return (dispatch:Dispatch) =>{
+
         authAPI.login(data).then(res =>{})
-    dispatch(ChangeInputValueAC(data.email,data.password))
-        dispatch(setIsLoggedInAC(true))
+
+        dispatch(setIsLoggedInAC(true,data.email,data.password))
         }
     }
