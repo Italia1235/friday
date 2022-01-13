@@ -21,8 +21,9 @@ export const setNewPasswordSuccess = (newPassSuccess: boolean) => ({type: 'SET-N
 export const setNewPass = (password: string, token: string) => async(dispatch: Dispatch) => {
     try {
         dispatch(setLoading(true));
+        dispatch(setError(null));
         const res = await setPassAPI.setNewPass(password, token);
-        res.data.info && dispatch(setNewPasswordSuccess(true))
+        res.data.info && dispatch(setNewPasswordSuccess(true));
     } catch (e: any) {
         e.response ? dispatch(setError(e.response.data.error)) : dispatch(setError('some error'))
     } finally {

@@ -21,7 +21,8 @@ export const setPassRecoverySuccess = (passRecoverySuccess: boolean) => ({
 } as const)
 
 //Thunk Creator
-const recoveryLink = 'http://localhost:3000/friday_project#/set-new-password/$token$'
+// const recoveryLink = 'http://localhost:3000/set-new-password/$token$'
+const recoveryLink = 'https://italia1235.github.io/set-new-password/$token$'
 const recoveryMessage = `<div style="background-color: #ccc; padding: 15px">
 password recovery link: <a href=${recoveryLink}>
 link</a></div>`
@@ -29,6 +30,7 @@ link</a></div>`
 export const recoverPass = (email: string) => async (dispatch: Dispatch) => {
     try {
         dispatch(setLoading(true))
+        dispatch(setError(null))
         const res = await forgotAPI.forgot(email, 'test-front-admin', recoveryMessage);
         res.data.success && dispatch(setPassRecoverySuccess(true))
     } catch (e: any) {
