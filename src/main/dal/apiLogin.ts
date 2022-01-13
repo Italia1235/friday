@@ -8,11 +8,25 @@ export type LoginParamsType = {
     email: string
     password: string
     rememberMe: boolean
-
 }
 
 export const authAPI = {
     login(data: LoginParamsType) {
-        return instance.post<ResponseType>('auth/login', data);
+        return instance.post<LoginParamsType,UserType>('auth/login', data);
     }
+}
+
+export type UserType = {
+    _id: string;
+    email: string;
+    name: string;
+    avatar?: string;
+    publicCardPacksCount: number; // количество колод
+    created: Date;
+    updated: Date;
+    isAdmin: boolean;
+    verified: boolean; // подтвердил ли почту
+    rememberMe: boolean;
+
+    error?: string;
 }

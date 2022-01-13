@@ -5,13 +5,14 @@ import SuperButton from "../../../main/ui/common/superButton/SuperButton";
 import {Link, NavLink} from "react-router-dom";
 import {PATH} from "../../../main/ui/routes/Routes";
 import {authReducer, LoginThunkCreator} from "../../../main/bll/reducers/login-reducer";
+import {useDispatch} from "react-redux";
 export const Login = () => {
 
     const [emailValue,setEmailValue] = useState<string>("")
     const [passValue,setPassValue] = useState<string>("")
-
+    const dispatch = useDispatch();
 const authStart = ()=>{
-    LoginThunkCreator({email:emailValue,password:passValue,rememberMe:true})
+    dispatch( LoginThunkCreator({email:emailValue,password:passValue,rememberMe:true}))
 }
 
     const changePasswordValue = (e: ChangeEvent<HTMLInputElement>) => {

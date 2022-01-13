@@ -25,8 +25,6 @@ export const setIsLoggedInAC = (isLoggedIn: boolean,email:string,password:string
     ({type: 'login/SET-IS-LOGGED-IN', isLoggedIn,email,password} as const)
 
 
-
-
 type InitialStateType = {
     isLoggedIn: boolean
     email:string,
@@ -36,9 +34,7 @@ type InitialStateType = {
 
 export const LoginThunkCreator = (data:LoginParamsType) => {
     return (dispatch:Dispatch) =>{
-
-        authAPI.login(data).then(res =>{})
-
+        authAPI.login(data).then(res=>res._id)
         dispatch(setIsLoggedInAC(true,data.email,data.password))
         }
     }
