@@ -7,6 +7,7 @@ import {Registration} from "./Registration";
 export const RegistrationContainer = () => {
     const successfully = useSelector<AppStoreType, string>((state) => state.register.successfully)
     const userName = useSelector<AppStoreType, string>(state => state.register.name)
+    const error = useSelector<AppStoreType, string>(state => state.register.error)
     const dispatch = useDispatch()
     let [email, setEmail] = useState("")
     let [password, setPassword] = useState("")
@@ -71,5 +72,7 @@ export const RegistrationContainer = () => {
                          mismatch={mismatch}
                          cancelHandler={cancelHandler}
                          successfully={successfully}
-                         registration={registration}/>
+                         registration={registration}
+                         error={error}
+    />
 }

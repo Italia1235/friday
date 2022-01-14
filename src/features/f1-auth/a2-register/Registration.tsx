@@ -23,6 +23,7 @@ type RegistrationPropsType = {
     cancelHandler: () => void
     successfully: string
     registration: () => void
+    error: string
 }
 
 export const Registration = ({
@@ -70,6 +71,7 @@ export const Registration = ({
                              src={eye}/>
                     </div>
                     {props.mismatch && <p className={s.error}>Passwords don't match</p>}
+                    {props.error !== "" && <p className={s.error}>{props.error}</p>}
                     <div className={s.buttons}>
                         <button onClick={cancelHandler}
                                 className={s.cancel}>Cancel

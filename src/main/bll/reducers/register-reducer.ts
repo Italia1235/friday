@@ -4,7 +4,8 @@ import {Dispatch} from "redux";
 export type loadingStatus = "loading" | "successfully"
 const initState = {
     name: "",
-    successfully: "successfully"
+    successfully: "successfully",
+    error: ""
 }
 export const registerReducer = (state = initState, action: ActionType): InitStateType => {
     switch (action.type) {
@@ -12,6 +13,9 @@ export const registerReducer = (state = initState, action: ActionType): InitStat
             return {...state, name: action.name}
         case "SET_LOADING_STATUS":
             return {...state, successfully: action.status}
+        case "SET_ERROR": {
+            return {...state, error: action.error}
+        }
         default:
             return state;
     }
@@ -33,19 +37,30 @@ export const loadingStatusAC = (status: loadingStatus) => {
     } as const
 }
 
+type SetErrorType = ReturnType<typeof setError>
+export const setError = (error: string) => {
+    return {
+        type: "SET_ERROR",
+        error
+    } as const
+}
+
 export const createUserTC = (data: PostParams) => {
     return (dispatch: Dispatch) => {
         dispatch(loadingStatusAC("loading"))
         registerApi.createUser(data)
             .then((res) => {
                 dispatch(setUser(res.name))
-            })
+            }).catch((err) => {
+            // console.log(err.response.data.error)
+            dispatch(setError(err.response.data.error))
+        })
             .finally(() => {
                 dispatch(loadingStatusAC("successfully"))
             })
     }
 }
 
-type ActionType = LoadingStatusACType | SetUserType
+type ActionType = LoadingStatusACType | SetUserType | SetErrorType
 
 type InitStateType = typeof initState;
