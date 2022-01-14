@@ -31,6 +31,7 @@ export const Login = () => {
         return <Navigate to={"/profile"}/>
     }
 
+
     return (
 
         <div>
@@ -43,14 +44,14 @@ export const Login = () => {
                     <p>Email</p>
                     <SuperInput onChange={changeEmailValue} value={emailValue}/>
                     <p>Password</p>
-                    <SuperInput onChange={changePasswordValue} value={passValue}/>
+                    <input type="password" onChange={changePasswordValue} value={passValue}/>
 
                     {appError && <div style={{color: "red"}}>{appError}</div>}
                 </form>
                 <div style={{paddingTop: "10px"}}><NavLink style={{color: "darkgrey", paddingLeft: "250px"}}
                                                            to={PATH.FORGOT}>Forgot Password?</NavLink></div>
                 <SuperButton style={{marginTop: "10px", width: "80px"}} onClick={() => authStart()}>Login</SuperButton>
-                <SuperButton style={{marginTop: "10px", width: "80px"}}>Sign up</SuperButton>
+                <SuperButton style={{marginTop: "10px", width: "80px"}} > Sign up</SuperButton>
             </div>
 
         </div>
