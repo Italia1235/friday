@@ -8,19 +8,16 @@ import {authReducer, LoginPageType, LoginThunkCreator} from "../../../main/bll/r
 import {useDispatch, useSelector} from "react-redux";
 import {AppStoreType} from "../../../main/bll/store/store";
 import {InitStateTypeProfile} from "../../../main/bll/reducers/profile-reducer";
+
 export const Login = () => {
-    const login = useSelector<AppStoreType,LoginPageType>(state => state.login)
+    const login = useSelector<AppStoreType, LoginPageType>(state => state.login)
     const {isLoading, appError} = useSelector((state: AppStoreType) => state.app);
-    const [emailValue,setEmailValue] = useState<string>("")
-    const [passValue,setPassValue] = useState<string>("")
+    const [emailValue, setEmailValue] = useState<string>("")
+    const [passValue, setPassValue] = useState<string>("")
     const dispatch = useDispatch();
-const authStart = ()=>{
-    dispatch( LoginThunkCreator({email:emailValue,password:passValue,rememberMe:true}))
-
-
-
-
-}
+    const authStart = () => {
+        dispatch(LoginThunkCreator({email: emailValue, password: passValue, rememberMe: true}))
+    }
 
     const changePasswordValue = (e: ChangeEvent<HTMLInputElement>) => {
         setPassValue(e.currentTarget.value)
@@ -29,31 +26,31 @@ const authStart = ()=>{
         setEmailValue(e.currentTarget.value)
     }
 
-
-
-    if(appError == null&&login.email !==""){
+    if (appError == null && login.email !== "") {
+        debugger
         return <Navigate to={"/profile"}/>
     }
 
-        return (
+    return (
 
-        <div >
-            <h2 style ={{textAlign:"center",paddingTop:"10px" }}>It-incubator</h2>
+        <div>
+            <h2 style={{textAlign: "center", paddingTop: "10px"}}>It-incubator</h2>
             <div className={s.allLoginArea}>
 
-        <h3>Sign In</h3>
+                <h3>Sign In</h3>
 
-            <form>
-            <p>Email</p>
-            <SuperInput onChange={changeEmailValue} value={emailValue}/>
-            <p>Password</p>
-            <SuperInput onChange={changePasswordValue} value={passValue} />
+                <form>
+                    <p>Email</p>
+                    <SuperInput onChange={changeEmailValue} value={emailValue}/>
+                    <p>Password</p>
+                    <SuperInput onChange={changePasswordValue} value={passValue}/>
 
-                {appError && <div style={{color: "red"}}>{appError}</div>}
-            </form>
-                <div style={{paddingTop:"10px"}}>  <NavLink style={{color:"darkgrey",paddingLeft:"250px"}} to={PATH.FORGOT}>Forgot Password?</NavLink> </div>
-                <SuperButton style={{marginTop:"10px",width:"80px"}} onClick={()=>authStart()}>Login</SuperButton>
-                <SuperButton style={{marginTop:"10px",width:"80px"}}>Sign up</SuperButton>
+                    {appError && <div style={{color: "red"}}>{appError}</div>}
+                </form>
+                <div style={{paddingTop: "10px"}}><NavLink style={{color: "darkgrey", paddingLeft: "250px"}}
+                                                           to={PATH.FORGOT}>Forgot Password?</NavLink></div>
+                <SuperButton style={{marginTop: "10px", width: "80px"}} onClick={() => authStart()}>Login</SuperButton>
+                <SuperButton style={{marginTop: "10px", width: "80px"}}>Sign up</SuperButton>
             </div>
 
         </div>
