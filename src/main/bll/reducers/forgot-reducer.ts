@@ -22,7 +22,7 @@ export const setPassRecoverySuccess = (passRecoverySuccess: boolean) => ({
 
 //Thunk Creator
 // const recoveryLink = 'http://localhost:3000/set-new-password/$token$'
-const recoveryLink = 'https://italia1235.github.io/set-new-password/$token$'
+const recoveryLink = 'https://italia1235.github.io/friday/set-new-password/$token$'
 const recoveryMessage = `<div style="background-color: #ccc; padding: 15px">
 password recovery link: <a href=${recoveryLink}>
 link</a></div>`
