@@ -7,6 +7,7 @@ const initState = {
     successfully: "successfully",
     error: ""
 }
+
 export const registerReducer = (state = initState, action: ActionType): InitStateType => {
     switch (action.type) {
         case "SET_USER":
