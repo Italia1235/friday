@@ -7,11 +7,18 @@ const instance = axios.create({
 })
 
 export const packsAPI = {
-    getPacks(){
-        return instance.get<PacksResponseType>('/cards/pack')
+    getPacks(packName?:string, min?:number, max?:number, sortPacks?: string, page?:number, pageCount?:number){
+        return instance.get<PacksResponseType>(
+            `/cards/pack?packName=${packName ? packName : 'english'}&min=${min ? min : 0}&max=${max ? max: 100}&page=${page ? page: 1}&pageCount=${pageCount? pageCount : 20}`)
     },
     createPack(name: string){
         return instance.post('/cards/pack', {cardsPack: {name}})
+    },
+    deletePack(id: string){
+        return instance.delete(`/cards/pack?id=${id}`)
+    },
+    updatePack(id: string, name?:string){
+        return instance.put( '/cards/pack', {cardsPack: {_id: id, name}} )
     }
 }
 

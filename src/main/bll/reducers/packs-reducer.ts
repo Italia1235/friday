@@ -1,6 +1,7 @@
 import {Dispatch} from "redux";
 import {packsAPI} from "../../dal/packsAPI";
 import {setError, setLoading} from "./app-reducer";
+import {AppThunkDispatch} from "../store/store";
 
 const initState = {
     packName: null as string | null,
@@ -37,16 +38,44 @@ export const getPacks = () => async (dispatch: Dispatch) => {
     }
 }
 
-export const createPack = (name: string) => async(dispatch: Dispatch) => {
+export const createPack = (name: string) => async(dispatch: AppThunkDispatch) => {
         try {
             dispatch(setLoading(true));
             dispatch(setError(null));
             await packsAPI.createPack(name);
+            dispatch(getPacks())
+
         } catch (e: any) {
             dispatch(setError(e.response? e.response.data.error : 'some error'))
         } finally {
             dispatch(setLoading(false))
         }
+}
+
+export const deletePack = (id: string) => async (dispatch: AppThunkDispatch) => {
+    try {
+        dispatch(setLoading(true));
+        dispatch(setError(null));
+        await packsAPI.deletePack(id);
+        dispatch(getPacks())
+    }catch (e:any) {
+        dispatch(setError(e.response? e.response.data.error : 'some error'))
+    } finally {
+        dispatch(setLoading(false))
+    }
+}
+
+export const updatePack = (id: string, name?: string) => async (dispatch: AppThunkDispatch) => {
+    try {
+        dispatch(setLoading(true));
+        dispatch(setError(null));
+        await packsAPI.updatePack(id, name);
+        dispatch(getPacks())
+    }catch (e:any) {
+        dispatch(setError(e.response? e.response.data.error : 'some error'))
+    } finally {
+        dispatch(setLoading(false))
+    }
 }
 
 //Types

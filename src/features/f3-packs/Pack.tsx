@@ -1,18 +1,22 @@
 import React from "react";
 import {PackType} from "../../main/bll/reducers/packs-reducer";
 
-export const Pack = React.memo(({pack, userId}: PackPropsType) => {
-    console.log('packUserId', pack.user_id)
-    console.log('loginUserId', userId)
+export const Pack = React.memo(({pack, userId, onRemovingPack, onEditingPack}: PackPropsType) => {
     const isEditable = pack.user_id === userId;
+    const onDeletePack = () => {
+        onRemovingPack(pack._id)
+    }
+    const onEditPack = () => {
+        onEditingPack(pack._id, 'someName') // can be changed after adding modal window for editing pack title
+    }
     return <tr>
         <td>{pack.name}</td>
         <td>{pack.cardsCount}</td>
         <td>{pack.updated}</td>
         <td>{pack.user_name}</td>
         <td>
-            {isEditable && <button>DELETE</button>}
-            {isEditable && <button>EDIT</button>}
+            {isEditable && <button onClick={onDeletePack}>DELETE</button>}
+            {isEditable && <button onClick={onEditPack}>EDIT</button>}
             <button>LEARN</button>
         </td>
     </tr>
@@ -21,4 +25,6 @@ export const Pack = React.memo(({pack, userId}: PackPropsType) => {
 type PackPropsType = {
     pack: PackType;
     userId: string | null
+    onRemovingPack: (id: string)=>void
+    onEditingPack: (id: string, name?: string) => void
 }
