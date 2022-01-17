@@ -3,6 +3,7 @@ import {PackType} from "../../main/bll/reducers/packs-reducer";
 import {Pack} from "./Pack";
 import React from 'react';
 
+
 export const Packs = React.memo(({packs, userId, onRemovingPack, onEditingPack}: PropsType) => {
     const mappedPacks = packs.map(p => <Pack key={p._id} pack={p}
                                              userId={userId}
