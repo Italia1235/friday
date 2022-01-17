@@ -9,20 +9,31 @@ const initState = {
     maxCardsCount: null as number | null,
     page: 1,
     pageCount: 4,
-    packs: [] as PackType[]
+    packs: [] as PackType[],
+    currentPage: 1,
 }
 
 export const packsReducer = (state = initState, action: ActionsType): InitStateType => {
     switch (action.type) {
         case "SET-PACKS":
             return {...state, ...action.payload}
+        case "SET_CURRENT_PAGE":
+            return {...state, currentPage: action.currentPage}
         default:
             return state;
     }
 }
 
 //Action creators
+type setPacksType = ReturnType<typeof setPacks>
 export const setPacks = (packs: PackType[]) => ({type: 'SET-PACKS', payload: {packs}} as const)
+type setCurrentPageType = ReturnType<typeof setCurrentPage>
+export const setCurrentPage = (currentPage: number) => {
+    return {
+        type: "SET_CURRENT_PAGE",
+        currentPage
+    } as const
+}
 
 //Thunk creators
 export const getPacks = () => async (dispatch: Dispatch) => {
@@ -32,24 +43,24 @@ export const getPacks = () => async (dispatch: Dispatch) => {
         const res = await packsAPI.getPacks();
         dispatch(setPacks(res.data.cardPacks))
     } catch (e: any) {
-        dispatch(setError(e.response? e.response.data.error : 'some error'))
+        dispatch(setError(e.response ? e.response.data.error : 'some error'))
     } finally {
         dispatch(setLoading(false))
     }
 }
 
-export const createPack = (name: string) => async(dispatch: AppThunkDispatch) => {
-        try {
-            dispatch(setLoading(true));
-            dispatch(setError(null));
-            await packsAPI.createPack(name);
-            dispatch(getPacks())
+export const createPack = (name: string) => async (dispatch: AppThunkDispatch) => {
+    try {
+        dispatch(setLoading(true));
+        dispatch(setError(null));
+        await packsAPI.createPack(name);
+        dispatch(getPacks())
 
-        } catch (e: any) {
-            dispatch(setError(e.response? e.response.data.error : 'some error'))
-        } finally {
-            dispatch(setLoading(false))
-        }
+    } catch (e: any) {
+        dispatch(setError(e.response ? e.response.data.error : 'some error'))
+    } finally {
+        dispatch(setLoading(false))
+    }
 }
 
 export const deletePack = (id: string) => async (dispatch: AppThunkDispatch) => {
@@ -58,8 +69,8 @@ export const deletePack = (id: string) => async (dispatch: AppThunkDispatch) => 
         dispatch(setError(null));
         await packsAPI.deletePack(id);
         dispatch(getPacks())
-    }catch (e:any) {
-        dispatch(setError(e.response? e.response.data.error : 'some error'))
+    } catch (e: any) {
+        dispatch(setError(e.response ? e.response.data.error : 'some error'))
     } finally {
         dispatch(setLoading(false))
     }
@@ -71,8 +82,8 @@ export const updatePack = (id: string, name?: string) => async (dispatch: AppThu
         dispatch(setError(null));
         await packsAPI.updatePack(id, name);
         dispatch(getPacks())
-    }catch (e:any) {
-        dispatch(setError(e.response? e.response.data.error : 'some error'))
+    } catch (e: any) {
+        dispatch(setError(e.response ? e.response.data.error : 'some error'))
     } finally {
         dispatch(setLoading(false))
     }
@@ -82,7 +93,7 @@ export const updatePack = (id: string, name?: string) => async (dispatch: AppThu
 
 type InitStateType = typeof initState;
 
-type ActionsType = ReturnType<typeof setPacks>
+type ActionsType = setPacksType | setCurrentPageType;
 
 export type PackType = {
     cardsCount: number
