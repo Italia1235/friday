@@ -5,11 +5,14 @@ import {AppThunkDispatch} from "../store/store";
 
 const initState = {
     packName: null as string | null,
-    minCardsCount: null as number | null,
-    maxCardsCount: null as number | null,
+    minCardsCount: 0, // min and max of our slider
+    maxCardsCount: 120,
+    min: 0, // min and max that user selected
+    max: 25,
     page: 1,
-    pageCount: 4,
-    packs: [] as PackType[]
+    pageCount: 20,
+    packs: [] as PackType[],
+    isMine: false,
 }
 
 export const packsReducer = (state = initState, action: ActionsType): InitStateType => {
