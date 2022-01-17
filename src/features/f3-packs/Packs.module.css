@@ -1,0 +1,30 @@
+.packList{
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+.addNewPack{
+    display: flex;
+    justify-content: space-evenly;
+}
+.packsTable{
+    width: 90%;
+    margin: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 18px rgba(33, 38, 143, 0.35), inset 0px 1px 0px rgba(255, 255, 255, 0.3);
+}
+.packsTable th{
+    justify-self: flex-start;
+}
+.packsTable tr{
+    display: flex;
+    justify-content: space-evenly;
+    background-color: #fff;
+}
+.packsTable tr:nth-child(odd){
+    background-color: #ECECF9;
+}
+.packsTable td{
+    width: 200px;
+}

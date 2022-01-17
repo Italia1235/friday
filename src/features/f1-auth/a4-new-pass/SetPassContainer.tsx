@@ -12,7 +12,7 @@ export const SetPassContainer = () => {
     const [passError, setPassError] = useState(false)
     const isLoading = useSelector((state: AppStoreType) => state.app.isLoading);
     const newPassSuccess = useSelector((state:AppStoreType)=> state.setPass.newPassSuccess);
-    const {token} = useParams<"token"| "id">();
+    const {token} = useParams<"token">();
     const dispatch = useDispatch();
     const [text1, setText1] = useState<string>('');
     const [text2, setText2] = useState<string>('');

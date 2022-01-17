@@ -22,10 +22,10 @@ export const setNewPass = (password: string, token: string) => async(dispatch: D
     try {
         dispatch(setLoading(true));
         dispatch(setError(null));
-        const res = await setPassAPI.setNewPass(password, token);
-        res.data.info && dispatch(setNewPasswordSuccess(true));
+        await setPassAPI.setNewPass(password, token);
+        dispatch(setNewPasswordSuccess(true));
     } catch (e: any) {
-        e.response ? dispatch(setError(e.response.data.error)) : dispatch(setError('some error'))
+        dispatch(setError(e.response? e.response.data.error : 'some error'))
     } finally {
         dispatch(setLoading(false))
     }
