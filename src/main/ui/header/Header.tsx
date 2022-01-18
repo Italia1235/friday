@@ -10,6 +10,7 @@ export const Header = () => {
             <Link to={PATH.REGISTER}>Registration</Link>
             <Link to={PATH.LOGIN}>Login</Link>
             <Link to={PATH.PACKS}>Packs</Link>
+            <Link to={PATH.CARDS}>Cards</Link>
             <Link to={PATH.FORGOT}>ForgotPass</Link>
             <Link to={PATH.SET_PASS}>SetNewPass</Link>
         </nav>

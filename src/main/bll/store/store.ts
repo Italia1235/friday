@@ -4,10 +4,10 @@ import {registerReducer} from "../reducers/register-reducer";
 import {forgotReducer} from "../reducers/forgot-reducer";
 import {setPassReducer} from "../reducers/set-pass-reducer";
 import {profileReducer} from "../reducers/profile-reducer";
-import thunk, { ThunkDispatch } from 'redux-thunk';
+import thunk, {ThunkAction, ThunkDispatch } from 'redux-thunk';
 import {appReducer} from "../reducers/app-reducer";
 import {packsReducer} from "../reducers/packs-reducer";
-import {searchReducer} from "../reducers/search-reducer";
+import {cardsReducer} from "../reducers/cards-reducer";
 
 const rootReducer = combineReducers({
     login: authReducer,
@@ -17,7 +17,7 @@ const rootReducer = combineReducers({
     profile: profileReducer,
     app: appReducer,
     packs: packsReducer,
-    search:searchReducer,
+    cards: cardsReducer,
 })
 
 const store = createStore(rootReducer, applyMiddleware(thunk))
@@ -27,3 +27,5 @@ export default store;
 export type AppStoreType = ReturnType<typeof rootReducer>;
 
 export type AppThunkDispatch = ThunkDispatch<void, AppStoreType, AnyAction>
+
+export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppStoreType, unknown, AnyAction>

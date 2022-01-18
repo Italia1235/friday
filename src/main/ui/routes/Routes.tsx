@@ -11,6 +11,7 @@ import {RegistrationContainer} from "../../../features/f1-auth/a2-register/Regis
 import {ForgotContainer} from "../../../features/f1-auth/a3-forgot-pass/ForgotContainer";
 import {SetPassContainer} from "../../../features/f1-auth/a4-new-pass/SetPassContainer";
 import {PacksContainer} from "../../../features/f3-packs/PacksContainer";
+import {CardsContainer} from "../../../features/f4-cards/CardsContainer";
 
 export const PATH = {
     PROFILE: '/profile',
@@ -19,7 +20,8 @@ export const PATH = {
     REGISTER: '/register',
     TEST: '/test',
     SET_PASS: '/set-new-password/:token',
-    PACKS: '/packs'
+    PACKS: '/packs',
+    CARDS: '/cards'
 }
 
 export const RoutesComponent = () => {
@@ -33,6 +35,7 @@ export const RoutesComponent = () => {
                 <Route path={PATH.SET_PASS} element={<SetPassContainer/>}/>
                 <Route path={PATH.TEST} element={<Test/>}/>
                 <Route path={PATH.PACKS} element={<PacksContainer/>} />
+                <Route path={PATH.CARDS} element={<CardsContainer/>} />
                 <Route path='*' element={<Error404/>}/>
             </Routes>
         </>

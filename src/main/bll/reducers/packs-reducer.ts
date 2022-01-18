@@ -102,14 +102,14 @@ export type PackType = {
     grade: number
     more_id: string
     name: string
-    path: string
+    // path: string
     private: false
-    rating: 0
+    // rating: 0
     shots: 0
-    type: "pack" | "folder"
+    // type: "pack" | "folder"
     updated: string
     user_id: string
     user_name: string
-    __v: 0
+    // __v: 0
     _id: string
 }
