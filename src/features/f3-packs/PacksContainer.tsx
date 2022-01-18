@@ -5,24 +5,26 @@ import {createPack, deletePack, getPacks, updatePack} from "../../main/bll/reduc
 import {AppStoreType} from "../../main/bll/store/store";
 import s from "./Packs.module.css";
 import {AddNewPack} from "./AddNewPack";
-import {Route, useParams, useSearchParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
+
 
 export const PacksContainer = () => {
     const dispatch = useDispatch();
     const params = useParams()
-    let some = params
     const [text, setText] = useState('')
     const isLoading = useSelector((state: AppStoreType) => state.app.isLoading);
     const userId = useSelector((state: AppStoreType) => state.login.userId);
     const packs = useSelector((state: AppStoreType) => state.packs.packs);
-    const currentPage = useSelector<AppStoreType, number>(state => state.packs.currentPage)
+    const stateLoading = useSelector<AppStoreType, boolean>(state => state.app.isLoading)
     useEffect(() => {
-        dispatch(getPacks())
-    }, [dispatch])
+        if (params.id) {
+            dispatch(getPacks(+params.id))
+        }
+    }, [params])
     const onInputChangeText = (value: string) => {
         setText(value);
     }
-    console.log('params: ', some);
+    console.log('params: ', params);
     const onAddingNewPack = () => {
         if (text) {
             dispatch(createPack(text))
@@ -37,6 +39,7 @@ export const PacksContainer = () => {
         dispatch(updatePack(id, name))
     }
 
+
     return (
         <div className={s.packList}>
             <h3>Packs list</h3>
@@ -49,6 +52,7 @@ export const PacksContainer = () => {
                    userId={userId}
                    onRemovingPack={onRemovingPack}
                    onEditingPack={onEditingPack}
+                   stateLoading={stateLoading}
             />
         </div>
     )

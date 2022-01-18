@@ -17,8 +17,8 @@ export const packsReducer = (state = initState, action: ActionsType): InitStateT
     switch (action.type) {
         case "SET-PACKS":
             return {...state, ...action.payload}
-        case "SET_CURRENT_PAGE":
-            return {...state, currentPage: action.currentPage}
+        case "SET_PAGE_COUNT":
+            return {...state, pageCount: action.pageCount}
         default:
             return state;
     }
@@ -28,20 +28,21 @@ export const packsReducer = (state = initState, action: ActionsType): InitStateT
 type setPacksType = ReturnType<typeof setPacks>
 export const setPacks = (packs: PackType[]) => ({type: 'SET-PACKS', payload: {packs}} as const)
 type setCurrentPageType = ReturnType<typeof setCurrentPage>
-export const setCurrentPage = (currentPage: number) => {
+export const setCurrentPage = (pageCount: number) => {
     return {
-        type: "SET_CURRENT_PAGE",
-        currentPage
+        type:  "SET_PAGE_COUNT",
+        pageCount
     } as const
 }
 
 //Thunk creators
-export const getPacks = () => async (dispatch: Dispatch) => {
+export const getPacks = (page?: number) => async (dispatch: Dispatch) => {
     try {
         dispatch(setLoading(true));
         dispatch(setError(null));
-        const res = await packsAPI.getPacks();
+        const res = await packsAPI.getPacks('', 0, 0, '', page);
         dispatch(setPacks(res.data.cardPacks))
+        dispatch(setCurrentPage(res.data.pageCount))
     } catch (e: any) {
         dispatch(setError(e.response ? e.response.data.error : 'some error'))
     } finally {

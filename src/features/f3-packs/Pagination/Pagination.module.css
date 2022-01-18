@@ -1,5 +1,7 @@
 .elem{
     margin-right: 10px;
+    color: black;
+    padding: 5px;
 }
 .activeElem{
     color: white;

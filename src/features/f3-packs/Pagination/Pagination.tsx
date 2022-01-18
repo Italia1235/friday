@@ -23,7 +23,7 @@ export const Pagination = () => {
                 let currentPage = () => {
                     dispatch(setCurrentPage(el))
                 }
-                return <NavLink to={`/packs/:${el}`}
+                return <NavLink to={`/packs/${el}`}
                                 className={({isActive}) => {
                                     return isActive ? s.activeElem : s.elem
                                 }}
