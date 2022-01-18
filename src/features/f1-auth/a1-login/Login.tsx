@@ -37,9 +37,7 @@ export const Login = () => {
         <div>
             <h2 style={{textAlign: "center", paddingTop: "10px"}}>It-incubator</h2>
             <div className={s.allLoginArea}>
-
                 <h3>Sign In</h3>
-
                 <form>
                     <p>Email</p>
                     <SuperInput onChange={changeEmailValue} value={emailValue}/>
