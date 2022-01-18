@@ -1,0 +1,31 @@
+.cardsList{
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+.cardsTable{
+    width: 90%;
+    margin: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 18px rgba(33, 38, 143, 0.35), inset 0px 1px 0px rgba(255, 255, 255, 0.3);
+}
+.cardsTable th{
+    justify-self: flex-start;
+}
+.cardsTable tr{
+    display: flex;
+    justify-content: space-evenly;
+    background-color: #fff;
+}
+.cardsTable tr:nth-child(odd){
+    background-color: #ECECF9;
+}
+.cardsTable td{
+    /*width: 200px;*/
+    /*inline-size: 190px;*/
+    /*overflow: hidden;*/
+    overflow-wrap: break-word;
+    word-break: break-all;
+
+}

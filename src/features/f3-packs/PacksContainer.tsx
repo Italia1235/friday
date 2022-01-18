@@ -20,9 +20,9 @@ export const PacksContainer = () => {
     const [rangeValue2, setRangeValue2] = useState(max);
 
     //useEffect sets new values for min/max of cards quantity to filter packs
-    useEffect(()=>{
+    const setCardsQtyRange = () => {
         dispatch(setRangeValues(rangeValue1, rangeValue2))
-    }, [rangeValue1, rangeValue2, dispatch])
+    }
 
     // temp input will be replaced by modal window
     const onInputChangeText = (value: string) => {
@@ -56,6 +56,7 @@ export const PacksContainer = () => {
                         text={text}
             />
             <DoubleRangeSlider min={minCardsCount} max={maxCardsCount}
+                               setCardsQtyRange={setCardsQtyRange}
                                setRangeValue1={setRangeValue1}
                                setRangeValue2={setRangeValue2}
                                value={[rangeValue1, rangeValue2]}
