@@ -50,7 +50,7 @@ export const getPacks = () => async (dispatch: Dispatch, getState: () => AppStor
     }
 }
 
-export const createPack = (name: string): AppThunk => async dispatch => {
+export const createPack = (name: string): AppThunk => async (dispatch) => {
         try {
             dispatch(setLoading(true));
             dispatch(setError(null));
