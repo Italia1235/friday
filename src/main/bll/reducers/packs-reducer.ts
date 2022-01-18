@@ -1,23 +1,26 @@
 import {Dispatch} from "redux";
 import {packsAPI} from "../../dal/packsAPI";
 import {setError, setLoading} from "./app-reducer";
-import {AppThunkDispatch} from "../store/store";
+import {AppStoreType, AppThunk} from "../store/store";
 
 const initState = {
-    packName: null as string | null,
+    packName: '',
     minCardsCount: 0, // min and max of our slider
     maxCardsCount: 120,
-    min: 0, // min and max that user selected
+    min: 5, // min and max that user selected
     max: 25,
     page: 1,
     pageCount: 20,
     packs: [] as PackType[],
     isMine: false,
+    sortPacks: '',
 }
 
 export const packsReducer = (state = initState, action: ActionsType): InitStateType => {
     switch (action.type) {
-        case "SET-PACKS":
+        case "packs/SET-PACKS":
+        case "packs/SET-RANGE-VALUES":
+        case "packs/SET-CARDS-COUNT":
             return {...state, ...action.payload}
         default:
             return state;
@@ -25,14 +28,20 @@ export const packsReducer = (state = initState, action: ActionsType): InitStateT
 }
 
 //Action creators
-export const setPacks = (packs: PackType[]) => ({type: 'SET-PACKS', payload: {packs}} as const)
+export const setPacks = (packs: PackType[]) => ({type: 'packs/SET-PACKS', payload: {packs}} as const)
+export const setCardsCount = (minCardsCount: number, maxCardsCount: number) => ({type: 'packs/SET-CARDS-COUNT',
+    payload: {minCardsCount, maxCardsCount}} as const);
+export const setRangeValues = (min: number, max: number) => ({type: 'packs/SET-RANGE-VALUES', payload: {min, max}} as const)
 
 //Thunk creators
-export const getPacks = () => async (dispatch: Dispatch) => {
+export const getPacks = () => async (dispatch: Dispatch, getState: () => AppStoreType) => {
+    const {packName, min, max, page, pageCount, isMine, sortPacks} = getState().packs
+    const user_id = isMine ? getState().login.userId : null
+    //how to add
     try {
         dispatch(setLoading(true));
         dispatch(setError(null));
-        const res = await packsAPI.getPacks();
+        const res = await packsAPI.getPacks(packName, min, max, sortPacks, page, pageCount, user_id );
         dispatch(setPacks(res.data.cardPacks))
     } catch (e: any) {
         dispatch(setError(e.response? e.response.data.error : 'some error'))
@@ -41,7 +50,7 @@ export const getPacks = () => async (dispatch: Dispatch) => {
     }
 }
 
-export const createPack = (name: string) => async(dispatch: AppThunkDispatch) => {
+export const createPack = (name: string): AppThunk => async dispatch => {
         try {
             dispatch(setLoading(true));
             dispatch(setError(null));
@@ -55,7 +64,7 @@ export const createPack = (name: string) => async(dispatch: AppThunkDispatch) =>
         }
 }
 
-export const deletePack = (id: string) => async (dispatch: AppThunkDispatch) => {
+export const deletePack = (id: string): AppThunk => async dispatch => {
     try {
         dispatch(setLoading(true));
         dispatch(setError(null));
@@ -68,7 +77,7 @@ export const deletePack = (id: string) => async (dispatch: AppThunkDispatch) => 
     }
 }
 
-export const updatePack = (id: string, name?: string) => async (dispatch: AppThunkDispatch) => {
+export const updatePack = (id: string, name?: string): AppThunk => async dispatch => {
     try {
         dispatch(setLoading(true));
         dispatch(setError(null));
@@ -85,7 +94,7 @@ export const updatePack = (id: string, name?: string) => async (dispatch: AppThu
 
 type InitStateType = typeof initState;
 
-type ActionsType = ReturnType<typeof setPacks>
+type ActionsType = ReturnType<typeof setPacks> | ReturnType<typeof setRangeValues> | ReturnType<typeof setCardsCount>
 
 export type PackType = {
     cardsCount: number
