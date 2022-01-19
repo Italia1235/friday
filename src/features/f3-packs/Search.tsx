@@ -21,7 +21,8 @@ const Search = () => {
 
     return (
         <div>
-            <input value ={valueSearch} onChange ={changeSearchValue}/>
+            <p>Это поиск</p>
+            <input placeholder="search" value ={valueSearch} onChange ={changeSearchValue}/>
         </div>
     );
 };

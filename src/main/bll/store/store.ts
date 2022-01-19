@@ -8,6 +8,7 @@ import thunk, {ThunkAction, ThunkDispatch } from 'redux-thunk';
 import {appReducer} from "../reducers/app-reducer";
 import {packsReducer} from "../reducers/packs-reducer";
 import {cardsReducer} from "../reducers/cards-reducer";
+import {searchReducer} from "../reducers/search-reducer";
 
 const rootReducer = combineReducers({
     login: authReducer,
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
     app: appReducer,
     packs: packsReducer,
     cards: cardsReducer,
+    search:searchReducer
 })
 
 const store = createStore(rootReducer, applyMiddleware(thunk))

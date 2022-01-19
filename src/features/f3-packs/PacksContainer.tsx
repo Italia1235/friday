@@ -12,6 +12,7 @@ export const PacksContainer = () => {
     const [text, setText] = useState('')
     const isLoading = useSelector((state: AppStoreType) => state.app.isLoading);
     const userId = useSelector((state: AppStoreType) => state.login.userId);
+    const searchValue = useSelector((state:AppStoreType)=>state.search.valueSearch)
     const {packs, minCardsCount, maxCardsCount, min, max} = useSelector((state: AppStoreType) => state.packs);
     const headers = ['Name', 'Cards', 'Last updated', 'Created by', 'Actions'];
 
@@ -32,7 +33,7 @@ export const PacksContainer = () => {
     //CRUD operations with packs
     useEffect(() => {
         dispatch(getPacks())
-    }, [dispatch, min, max])
+    }, [dispatch, min, max,searchValue])
     const onAddingNewPack = () => {
         if (text) {
             dispatch(createPack(text))
