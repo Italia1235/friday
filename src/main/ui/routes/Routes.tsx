@@ -19,7 +19,7 @@ export const PATH = {
     REGISTER: '/register',
     TEST: '/test',
     SET_PASS: '/set-new-password/:token',
-    PACKS: '/packs'
+    PACKS: '/packs/:id'
 }
 
 export const RoutesComponent = () => {

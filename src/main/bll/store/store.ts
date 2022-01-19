@@ -7,6 +7,7 @@ import {profileReducer} from "../reducers/profile-reducer";
 import thunk, { ThunkDispatch } from 'redux-thunk';
 import {appReducer} from "../reducers/app-reducer";
 import {packsReducer} from "../reducers/packs-reducer";
+import {searchReducer} from "../reducers/search-reducer";
 
 const rootReducer = combineReducers({
     login: authReducer,
@@ -16,11 +17,15 @@ const rootReducer = combineReducers({
     profile: profileReducer,
     app: appReducer,
     packs: packsReducer,
+    search:searchReducer,
 })
 
 const store = createStore(rootReducer, applyMiddleware(thunk))
 
 export default store;
+
+//@ts-ignore
+window.store = store
 
 export type AppStoreType = ReturnType<typeof rootReducer>;
 

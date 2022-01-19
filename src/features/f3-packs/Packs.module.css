@@ -28,3 +28,10 @@
 .packsTable td{
     width: 200px;
 }
+.loading{
+    margin: 0 auto;
+    width: 10%;
+}
+.select{
+    width: 10%
+}
