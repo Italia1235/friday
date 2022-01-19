@@ -6,7 +6,8 @@ import {AppStoreType} from "../../main/bll/store/store";
 import s from "./Packs.module.css";
 import {AddNewPack} from "./AddNewPack";
 import {useParams} from "react-router-dom";
-
+import {AddNewItem} from "./AddNewItem";
+import {DoubleRangeSlider} from "../../main/ui/common/doubleRangeSlider/DoubleRangeSlider";
 
 export const PacksContainer = () => {
     const dispatch = useDispatch();
@@ -22,7 +23,7 @@ export const PacksContainer = () => {
     const [rangeValue1, setRangeValue1] = useState(min);
     const [rangeValue2, setRangeValue2] = useState(max);
 
-    //useEffect sets new values for min/max of cards quantity to filter packs
+    //sets new values for min/max of cards quantity to filter packs
     const setCardsQtyRange = () => {
         dispatch(setRangeValues(rangeValue1, rangeValue2))
     }
@@ -42,6 +43,9 @@ export const PacksContainer = () => {
     //CRUD operations with packs
     useEffect(() => {
         dispatch(getPacks())
+    }, [dispatch, min, max])
+    const onAddingNewPack = (value: string) => {
+        dispatch(createPack(value ? value : 'New Pack'))
     }, [dispatch, min, max,searchValue])
     const onAddingNewPack = () => {
         if (text) {
@@ -60,10 +64,8 @@ export const PacksContainer = () => {
     return (
         <div className={s.packList}>
             <h3>Packs list</h3>
-            <AddNewPack addNewPack={onAddingNewPack}
+            <AddNewItem addNewCallback={onAddingNewPack}
                         isLoading={isLoading}
-                        onInputChangeText={onInputChangeText}
-                        text={text}
             />
             <DoubleRangeSlider min={minCardsCount} max={maxCardsCount}
                                setCardsQtyRange={setCardsQtyRange}

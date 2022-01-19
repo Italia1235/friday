@@ -27,11 +27,13 @@
 }
 .packsTable td{
     width: 200px;
+    inline-size: 150px;
+    overflow-wrap: break-word;
+    /*word-break: break-all;*/
 }
-.loading{
-    margin: 0 auto;
-    width: 10%;
+.packName{
+    cursor: pointer;
 }
-.select{
-    width: 10%
+.packName:hover{
+    color: #46eeae;
 }

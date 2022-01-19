@@ -2,6 +2,7 @@ import React from "react";
 import {PackType} from "../../main/bll/reducers/packs-reducer";
 import {useNavigate} from "react-router-dom";
 import {PATH} from "../../main/ui/routes/Routes";
+import s from "./Packs.module.css";
 
 export const Pack = React.memo(({pack, userId, onRemovingPack, onEditingPack, date}: PackPropsType) => {
     const isEditable = pack.user_id === userId;
@@ -15,7 +16,12 @@ export const Pack = React.memo(({pack, userId, onRemovingPack, onEditingPack, da
     const navigate = useNavigate();
 
     return <tr>
-        <td>{pack.name}</td>
+        <td>
+            <div className={s.packName}
+                 onClick={()=>{navigate(`${PATH.CARDS}?cardsPack_id=${pack._id}`)} }>
+                {pack.name}
+            </div>
+        </td>
         <td>{pack.cardsCount}</td>
         <td>{date}</td>
         <td>{pack.user_name}</td>
@@ -23,7 +29,6 @@ export const Pack = React.memo(({pack, userId, onRemovingPack, onEditingPack, da
             {isEditable && <button onClick={onDeletePack}>DELETE</button>}
             {isEditable && <button onClick={onEditPack}>EDIT</button>}
             <button>LEARN</button>
-            <button onClick={()=>{navigate(`${PATH.CARDS}?cardsPack_id=${pack._id}`)} }>Cards</button>
         </td>
     </tr>
 })

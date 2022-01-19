@@ -1,6 +1,7 @@
 import {Dispatch} from "redux";
 import {setError, setLoading} from "./app-reducer";
 import {cardsAPI} from "../../dal/cardsAPI";
+import {AppThunk} from "../store/store";
 
 const initState = {
     cards: [] as CardType[],
@@ -9,7 +10,7 @@ const initState = {
     page: 1,
     pageCount: 10,
     packUserId: null as string | null,
-    cardsTotalCount: 10
+    cardsTotalCount: 20
 }
 
 export const cardsReducer = (state = initState, action: ActionType): InitStateType => {
@@ -30,6 +31,18 @@ export const getCards = (pack_id: string | null) => async (dispatch: Dispatch) =
         dispatch(setError(null));
         const res = await cardsAPI.getCards(pack_id);
         dispatch(setCards(res.data.cards))
+    } catch (e: any) {
+        dispatch(setError(e.response? e.response.data.error : 'some error'));
+    } finally {
+        dispatch(setLoading(false));
+    }
+}
+export const createCard = (cardsPack_id: string | null, question?: string, answer?: string): AppThunk => async dispatch => {
+    try {
+        dispatch(setLoading(true));
+        dispatch(setError(null));
+        await cardsAPI.createCard({cardsPack_id, question, answer})
+        dispatch(getCards(cardsPack_id));
     } catch (e: any) {
         dispatch(setError(e.response? e.response.data.error : 'some error'));
     } finally {

@@ -11,6 +11,9 @@ export const cardsAPI = {
              min?:number, max?:number, sortCards?:string, page?:number, pageCount?:number ){
         return instance.get<CardsResType>('/cards/card',
             {params: {cardsPack_id, cardAnswer, cardQuestion, min, max, sortCards, page, pageCount}})
+    },
+    createCard(card: {cardsPack_id: string | null, question?: string, answer?: string}){
+        return instance.post('/cards/card', {card})
     }
 
 }
