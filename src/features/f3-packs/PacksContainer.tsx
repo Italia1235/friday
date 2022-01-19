@@ -1,14 +1,16 @@
 import {Packs} from "./Packs";
 import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {createPack, deletePack, getPacks, setRangeValues, updatePack} from "../../main/bll/reducers/packs-reducer";
+import {createPack, deletePack, getPacks, updatePack} from "../../main/bll/reducers/packs-reducer";
 import {AppStoreType} from "../../main/bll/store/store";
 import s from "./Packs.module.css";
 import {AddNewPack} from "./AddNewPack";
-import {DoubleRangeSlider} from "../../main/ui/common/doubleRangeSlider/DoubleRangeSlider";
+import {useParams} from "react-router-dom";
+
 
 export const PacksContainer = () => {
     const dispatch = useDispatch();
+    const params = useParams()
     const [text, setText] = useState('')
     const isLoading = useSelector((state: AppStoreType) => state.app.isLoading);
     const userId = useSelector((state: AppStoreType) => state.login.userId);
@@ -26,6 +28,13 @@ export const PacksContainer = () => {
     }
 
     // temp input will be replaced by modal window
+    const packs = useSelector((state: AppStoreType) => state.packs.packs);
+    const stateLoading = useSelector<AppStoreType, boolean>(state => state.app.isLoading)
+    useEffect(() => {
+        if (params.id) {
+            dispatch(getPacks(+params.id))
+        }
+    }, [params])
     const onInputChangeText = (value: string) => {
         setText(value);
     }
@@ -67,6 +76,7 @@ export const PacksContainer = () => {
                    userId={userId}
                    onRemovingPack={onRemovingPack}
                    onEditingPack={onEditingPack}
+                   stateLoading={stateLoading}
             />
         </div>
     )

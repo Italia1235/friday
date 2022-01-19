@@ -9,7 +9,6 @@ export const Profile = () => {
     return (
         <div>
         <h3>Profile</h3>
-
             <h2>{profile.name}</h2>
             <p>{profile.email}</p>
         </div>

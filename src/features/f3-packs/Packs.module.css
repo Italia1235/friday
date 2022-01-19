@@ -27,9 +27,11 @@
 }
 .packsTable td{
     width: 200px;
-    inline-size: 150px;
-    /*overflow: hidden;*/
-    overflow-wrap: break-word;
-    word-break: break-all;
-
+}
+.loading{
+    margin: 0 auto;
+    width: 10%;
+}
+.select{
+    width: 10%
 }

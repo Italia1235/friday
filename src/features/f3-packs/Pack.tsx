@@ -3,7 +3,7 @@ import {PackType} from "../../main/bll/reducers/packs-reducer";
 import {useNavigate} from "react-router-dom";
 import {PATH} from "../../main/ui/routes/Routes";
 
-export const Pack = React.memo(({pack, userId, onRemovingPack, onEditingPack}: PackPropsType) => {
+export const Pack = React.memo(({pack, userId, onRemovingPack, onEditingPack, date}: PackPropsType) => {
     const isEditable = pack.user_id === userId;
     const onDeletePack = () => {
         onRemovingPack(pack._id)
@@ -17,8 +17,8 @@ export const Pack = React.memo(({pack, userId, onRemovingPack, onEditingPack}: P
     return <tr>
         <td>{pack.name}</td>
         <td>{pack.cardsCount}</td>
-        <td>{pack.updated}</td>
-        <td>{userName}</td>
+        <td>{date}</td>
+        <td>{pack.user_name}</td>
         <td>
             {isEditable && <button onClick={onDeletePack}>DELETE</button>}
             {isEditable && <button onClick={onEditPack}>EDIT</button>}
@@ -31,6 +31,7 @@ export const Pack = React.memo(({pack, userId, onRemovingPack, onEditingPack}: P
 type PackPropsType = {
     pack: PackType;
     userId: string | null
-    onRemovingPack: (id: string)=>void
+    onRemovingPack: (id: string) => void
     onEditingPack: (id: string, name?: string) => void
+    date: string
 }
