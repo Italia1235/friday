@@ -14,7 +14,8 @@ const initState = {
     pageCount: 4,
     packs: [] as PackType[],
     currentPage: 1,
-    sortedPacks: 'name' as SortedType
+    sortedPacks: 'name' as SortedType,
+    maxPacksCount: 20
 }
 
 export const packsReducer = (state = initState, action: ActionsType): InitStateType => {
@@ -29,6 +30,8 @@ export const packsReducer = (state = initState, action: ActionsType): InitStateT
                 sortedPacks: action.sort,
                 packs: handlerSorted(state, action.sort).packs
             }
+        case "SET_MAX_PACKS_COUNT":
+            return {...state, maxPacksCount: action.count}
         default:
             return state;
     }
@@ -78,6 +81,13 @@ export const setCurrentPage = (pageCount: number) => {
 }
 type setSortedPacksType = ReturnType<typeof setSortedPacks>
 export const setSortedPacks = (sort: SortedType) => ({type: "SET_SORTED_PACKS", sort} as const)
+type setMaxPacksCountType = ReturnType<typeof setMaxPacksCount>
+export const setMaxPacksCount = (count: number) => {
+    return {
+        type: "SET_MAX_PACKS_COUNT",
+        count
+    } as const
+}
 
 //Thunk creators
 export const getPacks = (page?: number) => async (dispatch: Dispatch) => {
@@ -138,7 +148,7 @@ export const updatePack = (id: string, name?: string) => async (dispatch: AppThu
 
 type InitStateType = typeof initState;
 
-type ActionsType = setPacksType | setCurrentPageType | setSortedPacksType;
+type ActionsType = setPacksType | setCurrentPageType | setSortedPacksType | setMaxPacksCountType;
 
 export type PackType = {
     cardsCount: number

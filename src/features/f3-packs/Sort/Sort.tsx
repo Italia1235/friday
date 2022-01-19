@@ -1,8 +1,8 @@
-import {PackType, setSortedPacks, SortedType} from "../../main/bll/reducers/packs-reducer";
-import s from "./Packs.module.css";
+import {PackType, setSortedPacks, SortedType} from "../../../main/bll/reducers/packs-reducer";
+import s from "../Packs.module.css";
 import React, {ChangeEvent, useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {AppStoreType} from "../../main/bll/store/store";
+import {AppStoreType} from "../../../main/bll/store/store";
 
 
 export const Sort = () => {
