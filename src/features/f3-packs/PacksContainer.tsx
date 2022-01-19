@@ -4,12 +4,11 @@ import {useDispatch, useSelector} from "react-redux";
 import {createPack, deletePack, getPacks, setRangeValues, updatePack} from "../../main/bll/reducers/packs-reducer";
 import {AppStoreType} from "../../main/bll/store/store";
 import s from "./Packs.module.css";
-import {AddNewPack} from "./AddNewPack";
+import {AddNewItem} from "./AddNewItem";
 import {DoubleRangeSlider} from "../../main/ui/common/doubleRangeSlider/DoubleRangeSlider";
 
 export const PacksContainer = () => {
     const dispatch = useDispatch();
-    const [text, setText] = useState('')
     const isLoading = useSelector((state: AppStoreType) => state.app.isLoading);
     const userId = useSelector((state: AppStoreType) => state.login.userId);
     const {packs, minCardsCount, maxCardsCount, min, max} = useSelector((state: AppStoreType) => state.packs);
@@ -19,26 +18,17 @@ export const PacksContainer = () => {
     const [rangeValue1, setRangeValue1] = useState(min);
     const [rangeValue2, setRangeValue2] = useState(max);
 
-    //useEffect sets new values for min/max of cards quantity to filter packs
+    //sets new values for min/max of cards quantity to filter packs
     const setCardsQtyRange = () => {
         dispatch(setRangeValues(rangeValue1, rangeValue2))
-    }
-
-    // temp input will be replaced by modal window
-    const onInputChangeText = (value: string) => {
-        setText(value);
     }
 
     //CRUD operations with packs
     useEffect(() => {
         dispatch(getPacks())
     }, [dispatch, min, max])
-    const onAddingNewPack = () => {
-        if (text) {
-            dispatch(createPack(text))
-        } else {
-            dispatch(createPack('New Pack'))
-        }
+    const onAddingNewPack = (value: string) => {
+        dispatch(createPack(value ? value : 'New Pack'))
     }
     const onRemovingPack = (id: string) => {
         dispatch(deletePack(id))
@@ -50,10 +40,8 @@ export const PacksContainer = () => {
     return (
         <div className={s.packList}>
             <h3>Packs list</h3>
-            <AddNewPack addNewPack={onAddingNewPack}
+            <AddNewItem addNewCallback={onAddingNewPack}
                         isLoading={isLoading}
-                        onInputChangeText={onInputChangeText}
-                        text={text}
             />
             <DoubleRangeSlider min={minCardsCount} max={maxCardsCount}
                                setCardsQtyRange={setCardsQtyRange}

@@ -13,7 +13,7 @@ export const Packs = React.memo(({packs, headers, userId, onRemovingPack, onEdit
     return (
         <table className={s.packsTable}>
             <tbody>
-            <tr> {mappedHeaders} </tr>
+            <tr>{mappedHeaders}</tr>
             {mappedPacks}
             </tbody>
         </table>

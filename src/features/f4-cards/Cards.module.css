@@ -22,8 +22,8 @@
     background-color: #ECECF9;
 }
 .cardsTable td{
-    /*width: 200px;*/
-    /*inline-size: 190px;*/
+    width: 200px;
+    inline-size: 190px;
     /*overflow: hidden;*/
     overflow-wrap: break-word;
     word-break: break-all;

@@ -28,8 +28,12 @@
 .packsTable td{
     width: 200px;
     inline-size: 150px;
-    /*overflow: hidden;*/
     overflow-wrap: break-word;
-    word-break: break-all;
-
+    /*word-break: break-all;*/
+}
+.packName{
+    cursor: pointer;
+}
+.packName:hover{
+    color: #46eeae;
 }
