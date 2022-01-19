@@ -24,6 +24,9 @@ const store = createStore(rootReducer, applyMiddleware(thunk))
 
 export default store;
 
+//@ts-ignore
+window.store = store
+
 export type AppStoreType = ReturnType<typeof rootReducer>;
 
 export type AppThunkDispatch = ThunkDispatch<void, AppStoreType, AnyAction>

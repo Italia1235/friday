@@ -3,6 +3,9 @@ import {packsAPI} from "../../dal/packsAPI";
 import {setError, setLoading} from "./app-reducer";
 import {AppThunkDispatch} from "../store/store";
 
+
+export type SortedType = 'name' | 'cards' | 'last updated'
+
 const initState = {
     packName: null as string | null,
     minCardsCount: null as number | null,
@@ -11,6 +14,7 @@ const initState = {
     pageCount: 4,
     packs: [] as PackType[],
     currentPage: 1,
+    sortedPacks: 'name' as SortedType
 }
 
 export const packsReducer = (state = initState, action: ActionsType): InitStateType => {
@@ -19,8 +23,46 @@ export const packsReducer = (state = initState, action: ActionsType): InitStateT
             return {...state, ...action.payload}
         case "SET_PAGE_COUNT":
             return {...state, pageCount: action.pageCount}
+        case "SET_SORTED_PACKS":
+            return {
+                ...state,
+                sortedPacks: action.sort,
+                packs: handlerSorted(state, action.sort).packs
+            }
         default:
             return state;
+    }
+}
+
+const handlerSorted = (state: InitStateType, action: SortedType): InitStateType => {
+    switch (action) {
+        case "name": {
+            return {
+                ...state,
+                packs: state.packs
+                    .sort((a, b) => a.name < b.name ? 1 : -1)
+                    .map((el) => el)
+            }
+        }
+        case "cards": {
+            return {
+                ...state,
+                packs: state.packs
+                    .sort((a, b) => a.cardsCount < b.cardsCount ? 1 : -1)
+                    .map((el) => el)
+            }
+        }
+        case "last updated": {
+            return {
+                ...state,
+                packs: state.packs
+                    .sort((a, b) => a.updated < b.updated ? 1 : -1)
+                    .map((el) => el)
+            }
+        }
+        default: {
+            return state
+        }
     }
 }
 
@@ -30,10 +72,12 @@ export const setPacks = (packs: PackType[]) => ({type: 'SET-PACKS', payload: {pa
 type setCurrentPageType = ReturnType<typeof setCurrentPage>
 export const setCurrentPage = (pageCount: number) => {
     return {
-        type:  "SET_PAGE_COUNT",
+        type: "SET_PAGE_COUNT",
         pageCount
     } as const
 }
+type setSortedPacksType = ReturnType<typeof setSortedPacks>
+export const setSortedPacks = (sort: SortedType) => ({type: "SET_SORTED_PACKS", sort} as const)
 
 //Thunk creators
 export const getPacks = (page?: number) => async (dispatch: Dispatch) => {
@@ -94,7 +138,7 @@ export const updatePack = (id: string, name?: string) => async (dispatch: AppThu
 
 type InitStateType = typeof initState;
 
-type ActionsType = setPacksType | setCurrentPageType;
+type ActionsType = setPacksType | setCurrentPageType | setSortedPacksType;
 
 export type PackType = {
     cardsCount: number
