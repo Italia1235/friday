@@ -11,13 +11,6 @@ const Search = () => {
 
     const [valueSearch,setValue] = useState("")
 
-    const debounce = (fn:Function,ms:number) => {
-        let timeout:number
-        return function (){
-
-
-        }
-    }
     const SaveValue = () => {
         setSearchValue(valueSearch)
     }
@@ -25,7 +18,6 @@ const Search = () => {
     const changeSearchValue = (e: ChangeEvent<HTMLInputElement>) => {
         setValue(e.currentTarget.value)
     }
-
 
     return (
         <div>
