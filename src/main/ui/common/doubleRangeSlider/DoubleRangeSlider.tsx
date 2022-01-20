@@ -34,8 +34,8 @@ export const DoubleRangeSlider = ({value, max, min, setCardsQtyRange,
 }
 
 type PropsType = {
-    min: number
-    max: number
+    min: any
+    max: any
     value: [number, number]
     setRangeValue1: (value: number) => void
     setRangeValue2: (value: number) => void
