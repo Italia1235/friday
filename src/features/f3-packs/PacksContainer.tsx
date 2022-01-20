@@ -4,7 +4,6 @@ import {useDispatch, useSelector} from "react-redux";
 import {createPack, deletePack, getPacks, setRangeValues, updatePack} from "../../main/bll/reducers/packs-reducer";
 import {AppStoreType} from "../../main/bll/store/store";
 import s from "./Packs.module.css";
-/*import {AddNewPack} from "./AddNewPack";*/
 import {useParams} from "react-router-dom";
 import {AddNewItem} from "./AddNewItem";
 import {DoubleRangeSlider} from "../../main/ui/common/doubleRangeSlider/DoubleRangeSlider";
@@ -29,39 +28,19 @@ export const PacksContainer = () => {
         dispatch(setRangeValues(rangeValue1, rangeValue2))
     }
 
-    // temp input will be replaced by modal window
-    // const packs = useSelector((state: AppStoreType) => state.packs.packs);
     const stateLoading = useSelector<AppStoreType, boolean>(state => state.app.isLoading)
-/*    useEffect(() => {
-        if (params.id) {
-            dispatch(getPacks(+params.id))
-        }
-    }, [params])
-    const onInputChangeText = (value: string) => {
-        setText(value);
-    }*/
+
 
     //CRUD operations with packs
     useEffect(() => {
-       /* if (params.id) {
-            dispatch(getPacks(+params.id))
-        }*/
         dispatch(getPacks())
     }, [dispatch, min, max,packName,page,pageCount])
- /*   const onAddingNewPack = (value: string) => {
+
+
+    const onAddingNewPack = (value: string) => {
         dispatch(createPack(value ? value : 'New Pack'))
-    }, [dispatch, min, max,packName])
-    */
-
-
-
-    const onAddingNewPack = () => {
-        if (text) {
-            dispatch(createPack(text))
-        } else {
-            dispatch(createPack('New Pack'))
-        }
     }
+
     const onRemovingPack = (id: string) => {
         dispatch(deletePack(id))
     }

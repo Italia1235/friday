@@ -34,13 +34,6 @@ export const Packs = ({packs, userId, onRemovingPack, onEditingPack, stateLoadin
             <table className={s.packsTable}>
                 <Sort/>
                 <tbody>
-            {/*    <table className={s.packsTable}>
-                    <tbody>
-                    <tr>{mappedHeaders}</tr>
-                    {mappedPacks}
-                    </tbody>
-                </table>*/}
-
                 <tr>
                     <th>Name</th>
                     <th>Cards</th>

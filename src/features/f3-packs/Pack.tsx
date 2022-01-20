@@ -24,7 +24,7 @@ export const Pack = React.memo(({pack, userId, onRemovingPack, onEditingPack, da
         </td>
         <td>{pack.cardsCount}</td>
         <td>{date}</td>
-        <td>{pack.user_name}</td>
+        <td>{userName}</td>
         <td>
             {isEditable && <button onClick={onDeletePack}>DELETE</button>}
             {isEditable && <button onClick={onEditPack}>EDIT</button>}

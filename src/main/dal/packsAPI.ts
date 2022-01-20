@@ -7,18 +7,18 @@ const instance = axios.create({
 })
 
 export const packsAPI = {
-        getPacks(packName?: string|null, min?:number, max?:number, sortPacks?: string, page?:number, pageCount?:number, user_id?: string | null){
-            return instance.get<PacksResponseType>("/cards/pack",
-                {params: {packName, min, max, sortPacks, page, pageCount, user_id}})
-        },
-    createPack(name: string){
+    getPacks(packName?: string | null, min?: number, max?: number, sortPacks?: string, page?: number, pageCount?: number, user_id?: string | null) {
+        return instance.get<PacksResponseType>("/cards/pack",
+            {params: {packName, min, max, sortPacks, page, pageCount, user_id}})
+    },
+    createPack(name: string) {
         return instance.post('/cards/pack', {cardsPack: {name}})
     },
-    deletePack(id: string){
+    deletePack(id: string) {
         return instance.delete(`/cards/pack?id=${id}`)
     },
-    updatePack(id: string, name?:string){
-        return instance.put( '/cards/pack', {cardsPack: {_id: id, name}} )
+    updatePack(id: string, name?: string) {
+        return instance.put('/cards/pack', {cardsPack: {_id: id, name}})
     }
 }
 

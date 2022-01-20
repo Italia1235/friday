@@ -14,10 +14,10 @@ export const AddNewItem = ({isLoading, addNewCallback}: PropsType) =>{
 
     return (
         <div className={s.addNewPack}>
-            <SuperInput disabled={isLoading}
-                        value={text}
-                        onChange={e => setText(e.currentTarget.value)}
-            />
+            {/*<SuperInput disabled={isLoading}*/}
+            {/*            value={text}*/}
+            {/*            onChange={e => setText(e.currentTarget.value)}*/}
+            {/*/>*/}
             <SuperButton style={{width: '200px'}}
                          onClick={addNewItem}
                          disabled={isLoading}

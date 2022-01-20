@@ -18,6 +18,7 @@ export const CardsContainer = () => {
     const headers = ['Question', 'Answer', 'Last updated', 'Grade', 'Actions'];
     const cards = useSelector((state: AppStoreType) => state.cards.cards);
 
+
     //CRUD operations with cards
     useEffect(() => {
         dispatch(getCards(cardsPack_id))
@@ -30,7 +31,7 @@ export const CardsContainer = () => {
     return (
         <div className={s.cardsList}>
             <h3>Cards list</h3>
-            <AddNewCard isLoading={isLoading} onAddingNewCard={onAddingNewCard}/>
+            {/*<AddNewCard isLoading={isLoading} onAddingNewCard={onAddingNewCard}/>*/}
             <Cards headers={headers} cards={cards} userId={userId}/>
         </div>
     )

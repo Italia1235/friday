@@ -14,6 +14,12 @@ export const cardsAPI = {
     },
     createCard(card: {cardsPack_id: string | null, question?: string, answer?: string}){
         return instance.post('/cards/card', {card})
+    },
+    deleteCard(cardsPack_id: string | null, _id: string){
+        return instance.delete(`/cards/card?id=${_id}`)
+    },
+    updateCard(card: {_id: string, question?: string}){
+        return instance.put('/cards/card', {card})
     }
 
 }

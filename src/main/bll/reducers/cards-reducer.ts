@@ -49,6 +49,30 @@ export const createCard = (cardsPack_id: string | null, question?: string, answe
         dispatch(setLoading(false));
     }
 }
+export const deleteCard = (cardsPack_id: string | null, _id: string): AppThunk => async dispatch => {
+    try {
+        dispatch(setLoading(true));
+        dispatch(setError(null));
+        await cardsAPI.deleteCard(cardsPack_id, _id)
+        dispatch(getCards(cardsPack_id));
+    } catch (e: any) {
+        dispatch(setError(e.response? e.response.data.error : 'some error'));
+    } finally {
+        dispatch(setLoading(false));
+    }
+}
+export const updateCard = (cardsPack_id: string | null, _id:string, question?: string): AppThunk => async dispatch => {
+    try {
+        dispatch(setLoading(true));
+        dispatch(setError(null));
+        await cardsAPI.updateCard({_id, question})
+        dispatch(getCards(cardsPack_id));
+    } catch (e: any) {
+        dispatch(setError(e.response? e.response.data.error : 'some error'));
+    } finally {
+        dispatch(setLoading(false));
+    }
+}
 
 // Types
 type InitStateType = typeof initState;
