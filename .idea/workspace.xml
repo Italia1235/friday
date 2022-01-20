@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b9d4aafd-40a6-4673-8a3b-fed88e94be2d" name="Changes" comment="added tracking of the number of items" />
+    <list default="true" id="b9d4aafd-40a6-4673-8a3b-fed88e94be2d" name="Changes" comment="added tracking of the number of items">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/features/f3-packs/Packs.module.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/f3-packs/Packs.module.css" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -25,7 +28,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="feauters/pagination" />
+        <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -59,7 +62,7 @@
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="yarn" />
     <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors" />
-    <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
+    <property name="ts.external.directory.path" value="$PROJECT_DIR$/node_modules/typescript/lib" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
@@ -87,6 +90,8 @@
       <workItem from="1642510894080" duration="5858000" />
       <workItem from="1642582685505" duration="10539000" />
       <workItem from="1642609093194" duration="265000" />
+      <workItem from="1642691491808" duration="1030000" />
+      <workItem from="1642701926637" duration="198000" />
     </task>
     <task id="LOCAL-00001" summary="add new branch - VitalikBaiduk">
       <created>1641838526282</created>

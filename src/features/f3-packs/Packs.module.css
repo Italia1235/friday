@@ -37,3 +37,7 @@
 .packName:hover{
     color: #46eeae;
 }
+.loading{
+    width: 20%;
+    margin: 0 auto;
+}
