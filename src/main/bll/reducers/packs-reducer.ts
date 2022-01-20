@@ -28,12 +28,17 @@ export const packsReducer = (state = initState, action: ActionsType): InitStateT
         case "SET-PACKS":
             return {...state, ...action.payload}
         case "SET_PAGE_COUNT":
-            return {...state, pageCount: action.pageCount}
+            return {...state, page: action.pageCount}
         case "SET_SORTED_PACKS":
             return {
                 ...state,
                 sortedPacks: action.sort,
                 packs: handlerSorted(state, action.sort).packs
+            }
+
+        case "PAGESET-COUNT":
+            return {
+                ...state,pageCount: action.value
             }
         case "SET_MAX_PACKS_COUNT":
             return {...state, maxPacksCount: action.count}
@@ -72,6 +77,7 @@ const handlerSorted = (state: InitStateType, action: SortedType): InitStateType 
                     .map((el) => el)
             }
         }
+
         default: {
             return state
         }
@@ -91,6 +97,12 @@ export const setCurrentPage = (pageCount: number) => {
 }
 export const setSearchValue = (value:string)=>(
     {type:"SEARCH\SET-VALUE",value}as const)
+
+export const setPageCount = (value:number)=>(
+    {type:"PAGE\SET-COUNT",value}as const)
+
+
+
 
 type setSortedPacksType = ReturnType<typeof setSortedPacks>
 export const setSortedPacks = (sort: SortedType) => ({type: "SET_SORTED_PACKS", sort} as const)
@@ -180,7 +192,7 @@ type InitStateType = typeof initState;
 
 export type SearchType = ReturnType<typeof setSearchValue>
 
-type ActionsType = setPacksType | setCurrentPageType | setSortedPacksType | setMaxPacksCountType | SearchType
+type ActionsType = setPacksType | setCurrentPageType | setSortedPacksType | setMaxPacksCountType | SearchType|ReturnType<typeof setPageCount>
 
 export type PackType = {
     cardsCount: number

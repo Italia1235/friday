@@ -21,7 +21,9 @@ export const CardsContainer = () => {
     //CRUD operations with cards
     useEffect(() => {
         dispatch(getCards(cardsPack_id))
+
     }, [dispatch, cardsPack_id])
+
     const onAddingNewCard = (question: string, answer: string) => {
         dispatch(createCard(cardsPack_id, question, answer))
     }

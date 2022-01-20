@@ -17,7 +17,7 @@ export const PacksContainer = () => {
     const isLoading = useSelector((state: AppStoreType) => state.app.isLoading);
     const userId = useSelector((state: AppStoreType) => state.login.userId);
 
-    const {packs, minCardsCount, maxCardsCount, min, max,packName} = useSelector((state: AppStoreType) => state.packs);
+    const {packs, minCardsCount, maxCardsCount, min, max,packName,page,pageCount} = useSelector((state: AppStoreType) => state.packs);
     const headers = ['Name', 'Cards', 'Last updated', 'Created by', 'Actions'];
 
     // values for DoubleRangeSlider
@@ -43,8 +43,11 @@ export const PacksContainer = () => {
 
     //CRUD operations with packs
     useEffect(() => {
+       /* if (params.id) {
+            dispatch(getPacks(+params.id))
+        }*/
         dispatch(getPacks())
-    }, [dispatch, min, max,packName])
+    }, [dispatch, min, max,packName,page,pageCount])
  /*   const onAddingNewPack = (value: string) => {
         dispatch(createPack(value ? value : 'New Pack'))
     }, [dispatch, min, max,packName])
