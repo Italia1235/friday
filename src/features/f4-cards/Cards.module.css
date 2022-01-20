@@ -1,39 +1,31 @@
-.packList{
+.cardsList{
     text-align: center;
     display: flex;
     flex-direction: column;
     gap: 50px;
 }
-.addNewPack{
-    display: flex;
-    justify-content: space-evenly;
-}
-.packsTable{
+.cardsTable{
     width: 90%;
     margin: 20px;
     border-radius: 8px;
     box-shadow: 0px 4px 18px rgba(33, 38, 143, 0.35), inset 0px 1px 0px rgba(255, 255, 255, 0.3);
 }
-.packsTable th{
+.cardsTable th{
     justify-self: flex-start;
 }
-.packsTable tr{
+.cardsTable tr{
     display: flex;
     justify-content: space-evenly;
     background-color: #fff;
 }
-.packsTable tr:nth-child(odd){
+.cardsTable tr:nth-child(odd){
     background-color: #ECECF9;
 }
-.packsTable td{
+.cardsTable td{
     width: 200px;
-    inline-size: 150px;
+    inline-size: 190px;
+    /*overflow: hidden;*/
     overflow-wrap: break-word;
-    /*word-break: break-all;*/
-}
-.packName{
-    cursor: pointer;
-}
-.packName:hover{
-    color: #46eeae;
+    word-break: break-all;
+
 }

@@ -1,7 +1,7 @@
 import {Dispatch} from "redux";
 import {packsAPI} from "../../dal/packsAPI";
 import {setError, setLoading} from "./app-reducer";
-import {AppThunkDispatch} from "../store/store";
+import {AppStoreType, AppThunk, AppThunkDispatch} from "../store/store";
 
 
 export type SortedType = 'name' | 'cards' | 'last updated'
@@ -15,23 +15,38 @@ const initState = {
     packs: [] as PackType[],
     currentPage: 1,
     sortedPacks: 'name' as SortedType,
-    maxPacksCount: 20
+    maxPacksCount: 20,
+    min:0,
+    max:120,
+    isMine:false,
+    sortPacks:"",
+
 }
 
 export const packsReducer = (state = initState, action: ActionsType): InitStateType => {
     switch (action.type) {
         case "SET-PACKS":
+        case "packs/SET-RANGE-VALUES":
             return {...state, ...action.payload}
         case "SET_PAGE_COUNT":
-            return {...state, pageCount: action.pageCount}
+            return {...state, page: action.pageCount}
         case "SET_SORTED_PACKS":
             return {
                 ...state,
                 sortedPacks: action.sort,
                 packs: handlerSorted(state, action.sort).packs
             }
+
+        case "PAGESET-COUNT":
+            return {
+                ...state,pageCount: action.value
+            }
         case "SET_MAX_PACKS_COUNT":
             return {...state, maxPacksCount: action.count}
+
+        case "SEARCH\SET-VALUE":
+            return {...state,packName: action.value}
+
         default:
             return state;
     }
@@ -63,6 +78,7 @@ const handlerSorted = (state: InitStateType, action: SortedType): InitStateType 
                     .map((el) => el)
             }
         }
+
         default: {
             return state
         }
@@ -70,8 +86,11 @@ const handlerSorted = (state: InitStateType, action: SortedType): InitStateType 
 }
 
 //Action creators
-type setPacksType = ReturnType<typeof setPacks>
+
+export const setRangeValues = (min: number, max: number) => ({type: 'packs/SET-RANGE-VALUES', payload: {min, max}} as const)
+
 export const setPacks = (packs: PackType[]) => ({type: 'SET-PACKS', payload: {packs}} as const)
+
 type setCurrentPageType = ReturnType<typeof setCurrentPage>
 export const setCurrentPage = (pageCount: number) => {
     return {
@@ -79,8 +98,15 @@ export const setCurrentPage = (pageCount: number) => {
         pageCount
     } as const
 }
+export const setSearchValue = (value:string)=>(
+    {type:"SEARCH\SET-VALUE",value}as const)
+
+export const setPageCount = (value:number)=>(
+    {type:"PAGE\SET-COUNT",value}as const)
+
 type setSortedPacksType = ReturnType<typeof setSortedPacks>
 export const setSortedPacks = (sort: SortedType) => ({type: "SET_SORTED_PACKS", sort} as const)
+
 type setMaxPacksCountType = ReturnType<typeof setMaxPacksCount>
 export const setMaxPacksCount = (count: number) => {
     return {
@@ -90,21 +116,25 @@ export const setMaxPacksCount = (count: number) => {
 }
 
 //Thunk creators
-export const getPacks = (page?: number) => async (dispatch: Dispatch) => {
+
+export const getPacks = () => async (dispatch: Dispatch, getState: () => AppStoreType) => {
+    const {packName, min, max, page, pageCount, isMine, sortPacks} = getState().packs
+    const user_id = isMine ? getState().login.userId : null
+    //how to add
     try {
         dispatch(setLoading(true));
         dispatch(setError(null));
-        const res = await packsAPI.getPacks('', 0, 0, '', page);
+        const res = await packsAPI.getPacks(packName, min, max, sortPacks, page, pageCount, user_id );
         dispatch(setPacks(res.data.cardPacks))
-        dispatch(setCurrentPage(res.data.pageCount))
     } catch (e: any) {
-        dispatch(setError(e.response ? e.response.data.error : 'some error'))
+        dispatch(setError(e.response? e.response.data.error : 'some error'))
     } finally {
         dispatch(setLoading(false))
     }
 }
 
-export const createPack = (name: string) => async (dispatch: AppThunkDispatch) => {
+
+export const createPack = (name: string):AppThunk => async (dispatch) => {
     try {
         dispatch(setLoading(true));
         dispatch(setError(null));
@@ -118,7 +148,7 @@ export const createPack = (name: string) => async (dispatch: AppThunkDispatch) =
     }
 }
 
-export const deletePack = (id: string) => async (dispatch: AppThunkDispatch) => {
+export const deletePack = (id: string):AppThunk => async (dispatch) => {
     try {
         dispatch(setLoading(true));
         dispatch(setError(null));
@@ -131,7 +161,7 @@ export const deletePack = (id: string) => async (dispatch: AppThunkDispatch) => 
     }
 }
 
-export const updatePack = (id: string, name?: string) => async (dispatch: AppThunkDispatch) => {
+export const updatePack = (id: string, name?: string):AppThunk => async (dispatch) => {
     try {
         dispatch(setLoading(true));
         dispatch(setError(null));
@@ -148,7 +178,10 @@ export const updatePack = (id: string, name?: string) => async (dispatch: AppThu
 
 type InitStateType = typeof initState;
 
-type ActionsType = setPacksType | setCurrentPageType | setSortedPacksType | setMaxPacksCountType;
+export type SearchType = ReturnType<typeof setSearchValue>
+
+type ActionsType = ReturnType<typeof setPacks> | setCurrentPageType | setSortedPacksType | setMaxPacksCountType | SearchType
+    |ReturnType<typeof setPageCount> | ReturnType<typeof setRangeValues>
 
 export type PackType = {
     cardsCount: number

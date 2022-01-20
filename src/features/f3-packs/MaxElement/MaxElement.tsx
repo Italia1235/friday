@@ -2,15 +2,15 @@ import s from "../Packs.module.css";
 import React from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {AppStoreType} from "../../../main/bll/store/store";
-import {setMaxPacksCount} from "../../../main/bll/reducers/packs-reducer";
+import {setMaxPacksCount, setPageCount} from "../../../main/bll/reducers/packs-reducer";
 
 export const MaxElement = () => {
-    const maxPacksCount = useSelector<AppStoreType, number>(state => state.packs.maxPacksCount)
+    const maxPacksCount = useSelector<AppStoreType, number>(state => state.packs.pageCount)
     const dispatch = useDispatch()
     return (
         <>
             <select onChange={(e) => {
-                dispatch(setMaxPacksCount(+e.target.value))
+                dispatch(setPageCount(+e.target.value))
             }} value={maxPacksCount}>
                 <option value="1">1</option>
                 <option value="2">2</option>

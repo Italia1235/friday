@@ -8,6 +8,9 @@ export type SearchType = {
 export const searchReducer = (state = initState, action: ActionType): InitStateType => {
     switch (action.type) {
 
+        case "SEARCH\SET-VALUE":
+       return {...state,valueSearch: action.value}
+
         default:
             return state;
     }
